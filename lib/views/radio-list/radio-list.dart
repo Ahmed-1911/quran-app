@@ -58,7 +58,6 @@ class RadioList extends StatelessWidget {
                                                 image: NetworkImage(index == 3
                                                     ? 'https://i.gifer.com/Pf0j.gif'
                                                     : 'https://png.pngtree.com/png-vector/20190901/ourlarge/pngtree-radio-icon-design-vector-png-image_1712465.jpg'),
-                                                //https://i.gifer.com/Pf0j.gif
                                                 fit: BoxFit.fill
                                             ),
                                             boxShadow: [

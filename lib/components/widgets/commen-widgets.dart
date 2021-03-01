@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progressive_image/progressive_image.dart';
-import 'package:quran/components/constrains/constrain.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 myAppBar(String title){
-  return AppBar(
-    backgroundColor: primColor,
-    elevation: 0,
-    title: autoText(title, 1, 20, FontWeight.w700, Colors.white),
-    centerTitle: true,
+  return Container(
+      height: 0.07.sh,
+      alignment: Alignment.center,
+      child:autoText(title, 1, 16.ssp, FontWeight.w700, Colors.white)
   );
 }
 
@@ -40,7 +39,7 @@ AutoSizeText autoText(String text, int maxLine, double fontSize,FontWeight fontW
 
 myImageContainer(BuildContext context,String image){
   return ClipRRect(
-    borderRadius: BorderRadius.circular(47),
+    borderRadius: BorderRadius.circular(47.r),
     child: ProgressiveImage(
       placeholder: AssetImage('assets/images/loading.gif'),
       thumbnail: NetworkImage(
