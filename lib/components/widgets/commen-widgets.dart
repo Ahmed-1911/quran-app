@@ -4,12 +4,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:quran/components/constrains/constrain.dart';
 
 myAppBar(String title){
   return Container(
       height: 0.07.sh,
-      alignment: Alignment.bottomCenter,
-      child:autoText(title, 1, 16.ssp, FontWeight.w700, Colors.white)
+      color: primColor,
+      alignment: Alignment.center,
+      child:autoText(title, 1, 17.ssp, FontWeight.w700, Colors.white)
   );
 }
 
