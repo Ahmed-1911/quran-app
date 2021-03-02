@@ -10,7 +10,8 @@ class Play extends StatelessWidget {
       backgroundColor: primColor,
       body: Column(
         children: <Widget>[
-          myAppBar('مشاري بن راشد'),
+         // myAppBar('مشاري'),
+          myAppBar('مشاري'),
           Container(
             height: 0.93.sh,
             child: Stack(
