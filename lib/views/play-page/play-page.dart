@@ -18,7 +18,7 @@ class Play extends StatelessWidget {
               alignment: Alignment.center,
               children: <Widget>[
                 Positioned(
-                  left: -(1.sw),
+               //   left: -(1.sw),
                   child: Container(
                     height:0.93.sh,
                     width: 2.sw,
