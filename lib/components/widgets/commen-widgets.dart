@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 myAppBar(String title){
   return Container(
       height: 0.07.sh,
-      alignment: Alignment.center,
+      alignment: Alignment.bottomCenter,
       child:autoText(title, 1, 16.ssp, FontWeight.w700, Colors.white)
   );
 }
