@@ -63,7 +63,7 @@ class _PlayState extends State<Play> {
                     alignment: Alignment.center,
                     children: <Widget>[
                       Positioned(
-                        //   left: -(1.sw),
+                        left: -(1.sw),
                         child: Container(
                           height: 0.93.sh,
                           width: 2.sw,
@@ -72,7 +72,6 @@ class _PlayState extends State<Play> {
                               borderRadius: BorderRadius.circular(800.r)),
                         ),
                       ),
-
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -105,41 +104,38 @@ class _PlayState extends State<Play> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Container(
-                                height: 30.h,
-                                width: 30.h,
-                                child: IconButton(
-                                    icon: Icon(
-                                    Icons.stop, color: primColor, size: 20.sp,),
-                                  onPressed: AudioService.pause,
-
-                                ),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    border: Border.all(
-                                        color: primColor,
-                                        width: 1.5.sp
-                                    )
+                              GestureDetector(
+                                onTap: AudioService.pause,
+                                child: Container(
+                                  height: 30.h,
+                                  width: 30.h,
+                                  child: Icon(Icons.stop, color: primColor, size: 20.sp,),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.r),
+                                      border: Border.all(
+                                          color: primColor,
+                                          width: 1.5.sp
+                                      )
+                                  ),
                                 ),
                               ),
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 20.w),
-                                height: 50.h,
-                                width: 50.h,
-                                child: IconButton(
-                                  icon:  Icon(
-                                    Icons.play_arrow, color: Colors.white,
-                                    size: 40.sp,),
-                                  onPressed: AudioService.play,
-                                ),
-
-                                decoration: BoxDecoration(
-                                    color: primColor,
-                                    borderRadius: BorderRadius.circular(40.r),
-                                    border: Border.all(
-                                        color: primColor,
-                                        width: 1.5.sp
-                                    )
+                              GestureDetector(
+                                onTap:AudioService.play ,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                                  height: 50.h,
+                                  width: 50.h,
+                                  child:  Icon(
+                                      Icons.play_arrow, color: Colors.white,
+                                      size: 40.sp,),
+                                  decoration: BoxDecoration(
+                                      color: primColor,
+                                      borderRadius: BorderRadius.circular(40.r),
+                                      border: Border.all(
+                                          color: primColor,
+                                          width: 1.5.sp
+                                      )
+                                  ),
                                 ),
                               ),
                               Container(
@@ -147,7 +143,7 @@ class _PlayState extends State<Play> {
                                 width: 30.h,
                                 child: IconButton(
                                 onPressed:AudioService.skipToPrevious  ,
-                                icon: Icon(
+                                 icon: Icon(
                                     Icons.repeat, color: primColor, size: 20.sp,),
                                 ),
                                 decoration: BoxDecoration(
