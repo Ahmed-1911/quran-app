@@ -14,8 +14,9 @@ class Play extends StatefulWidget {
 
 class _PlayState extends State<Play> {
   final BehaviorSubject<double> _dragPositionSubject =
-      BehaviorSubject.seeded(null);
+  BehaviorSubject.seeded(null);
   final _queue = <MediaItem>[];
+
 
   bool _loading;
 
@@ -24,20 +25,19 @@ class _PlayState extends State<Play> {
     super.initState();
     _loading = false;
     for (int i = 0; i < 1; i++) {
-      _queue.add(
-        MediaItem(
-          id: "https://server11.mp3quran.net/hazza/015.mp3",
-          album: "قرآن",
-          title: "سُورَةُ ٱلْفَاتِحَةِ",
-          artist: "Science Friday and WNYC Studios",
-          duration: Duration(milliseconds: 5739),
-          artUri:
-              "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg",
-        ),
-      );
+      _queue.add(MediaItem(
+        id: "https://server11.mp3quran.net/hazza/015.mp3",
+        album: "قرآن",
+        title: "سُورَةُ ٱلْفَاتِحَةِ",
+        artist: "Science Friday and WNYC Studios",
+        duration: Duration(milliseconds: 5739),
+        artUri:
+        "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg",
+      ),);
     }
     _startAudioPlayerBtn();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +45,10 @@ class _PlayState extends State<Play> {
       backgroundColor: primColor,
       body: Column(
         children: <Widget>[
+          // myAppBar('مشاري'),
           myAppBar('مشاري'),
           StreamBuilder<AudioState>(
-              stream: _audioStateStream,
+            stream: _audioStateStream,
               builder: (context, snapshot) {
                 final audioState = snapshot.data;
                 final queue = audioState?.queue;
@@ -62,7 +63,7 @@ class _PlayState extends State<Play> {
                     alignment: Alignment.center,
                     children: <Widget>[
                       Positioned(
-                       left: -(1.sw),
+                        //   left: -(1.sw),
                         child: Container(
                           height: 0.93.sh,
                           width: 2.sw,
@@ -71,6 +72,7 @@ class _PlayState extends State<Play> {
                               borderRadius: BorderRadius.circular(800.r)),
                         ),
                       ),
+
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -81,14 +83,19 @@ class _PlayState extends State<Play> {
                               width: 150.h,
                               margin: EdgeInsets.all(5),
                               decoration: BoxDecoration(
-                                  border:
-                                      Border.all(color: primColor, width: 3.sp),
-                                  borderRadius: BorderRadius.circular(50.r)),
-                              child: myImageContainer(context, '')),
+                                  border: Border.all(
+                                      color: primColor,
+                                      width: 3.sp
+                                  ),
+                                  borderRadius: BorderRadius.circular(50.r)
+                              ),
+                              child: myImageContainer(context, '')
+                          ),
                           autoText('سوره المائدة', 1, 17.ssp, FontWeight.w700,
                               Colors.black),
-                          autoText('رواية حفص عن عاصم', 1, 10.ssp,
-                              FontWeight.w400, Colors.black54),
+                          autoText(
+                              'رواية حفص عن عاصم', 1, 10.ssp, FontWeight.w400,
+                              Colors.black54),
                           Slider(
                             value: 5,
                             onChanged: (value) => {},
@@ -98,53 +105,58 @@ class _PlayState extends State<Play> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              GestureDetector(
-                                onTap: AudioService.pause,
-                                child: Container(
-                                  height: 30.h,
-                                  width: 30.h,
-                                  child: Icon(
-                                      Icons.stop,
-                                      color: primColor,
-                                      size: 20.sp,
-                                    ),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30.r),
-                                      border: Border.all(
-                                          color: primColor, width: 1.5.sp)),
+                              Container(
+                                height: 30.h,
+                                width: 30.h,
+                                child: IconButton(
+                                    icon: Icon(
+                                    Icons.stop, color: primColor, size: 20.sp,),
+                                  onPressed: AudioService.pause,
+
+                                ),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(30.r),
+                                    border: Border.all(
+                                        color: primColor,
+                                        width: 1.5.sp
+                                    )
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: AudioService.play,
-                                child: Container(
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 20.w),
-                                  height: 50.h,
-                                  width: 50.h,
-                                  child: Icon(
-                                    Icons.play_arrow,
-                                    color: Colors.white,
-                                    size: 40.sp,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: primColor,
-                                      borderRadius: BorderRadius.circular(40.r),
-                                      border: Border.all(
-                                          color: primColor, width: 1.5.sp)),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 20.w),
+                                height: 50.h,
+                                width: 50.h,
+                                child: IconButton(
+                                  icon:  Icon(
+                                    Icons.play_arrow, color: Colors.white,
+                                    size: 40.sp,),
+                                  onPressed: AudioService.play,
+                                ),
+
+                                decoration: BoxDecoration(
+                                    color: primColor,
+                                    borderRadius: BorderRadius.circular(40.r),
+                                    border: Border.all(
+                                        color: primColor,
+                                        width: 1.5.sp
+                                    )
                                 ),
                               ),
                               Container(
                                 height: 30.h,
                                 width: 30.h,
-                                child: Icon(
-                                  Icons.repeat,
-                                  color: primColor,
-                                  size: 20.sp,
+                                child: IconButton(
+                                onPressed:AudioService.skipToPrevious  ,
+                                icon: Icon(
+                                    Icons.repeat, color: primColor, size: 20.sp,),
                                 ),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30.r),
                                     border: Border.all(
-                                        color: primColor, width: 1.5.sp)),
+                                        color: primColor,
+                                        width: 1.5.sp
+                                    )
+                                ),
                               ),
                             ],
                           ),
@@ -166,20 +178,21 @@ class _PlayState extends State<Play> {
       list.add(m);
     }
     var params = {"data": list};
-    setState(() {
-      _loading = true;
-    });
-    await AudioService.start(
-      backgroundTaskEntrypoint: _audioPlayerTaskEntrypoint,
-      androidNotificationChannelName: 'Audio Player',
-      androidNotificationColor: 0xFF2196f3,
-      androidNotificationIcon: 'mipmap/ic_launcher',
-      params: params,
-    );
-    setState(() {
-      _loading = false;
-    });
-  }
+
+        setState(() {
+          _loading = true;
+        });
+        await AudioService.start(
+          backgroundTaskEntrypoint: _audioPlayerTaskEntrypoint,
+          androidNotificationChannelName: 'Audio Player',
+          androidNotificationColor: 0xFF2196f3,
+          androidNotificationIcon: 'mipmap/ic_launcher',
+          params: params,
+        );
+        setState(() {
+          _loading = false;
+        });
+      }
 
   Widget positionIndicator(MediaItem mediaItem, PlaybackState state) {
     double seekPos;
@@ -187,7 +200,7 @@ class _PlayState extends State<Play> {
       stream: Rx.combineLatest2<double, double, double>(
           _dragPositionSubject.stream,
           Stream.periodic(Duration(milliseconds: 20)),
-          (dragPosition, _) => dragPosition),
+              (dragPosition, _) => dragPosition),
       builder: (context, snapshot) {
         double position =
             snapshot.data ?? state.currentPosition.inMilliseconds.toDouble();
@@ -221,21 +234,19 @@ class _PlayState extends State<Play> {
     );
   }
 }
-
 Stream<AudioState> get _audioStateStream {
   return Rx.combineLatest3<List<MediaItem>, MediaItem, PlaybackState,
       AudioState>(
     AudioService.queueStream,
     AudioService.currentMediaItemStream,
     AudioService.playbackStateStream,
-    (queue, mediaItem, playbackState) => AudioState(
+        (queue, mediaItem, playbackState) => AudioState(
       queue,
       mediaItem,
       playbackState,
     ),
   );
 }
-
 void _audioPlayerTaskEntrypoint() async {
   AudioServiceBackground.run(() => AudioPlayerTask());
 }
