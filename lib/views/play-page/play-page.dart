@@ -44,7 +44,7 @@ class Play extends StatelessWidget {
                         ),
                         child:myImageContainer(context,'')
                     ),
-                    autoText('سوره البقرة', 1, 17.ssp, FontWeight.w700, Colors.black),
+                    autoText('سوره المائدة', 1, 17.ssp, FontWeight.w700, Colors.black),
                     autoText('رواية حفص عن عاصم', 1, 10.ssp, FontWeight.w400,
                         Colors.black54),
                     Slider(
