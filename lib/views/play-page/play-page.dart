@@ -27,7 +27,7 @@ class _PlayState extends State<Play> {
     for (int i = 0; i < 1; i++) {
       _queue.add(MediaItem(
         id: "https://server11.mp3quran.net/hazza/015.mp3",
-        album: "Science Friday",
+        album: "قرآن",
         title: "سُورَةُ ٱلْفَاتِحَةِ",
         artist: "Science Friday and WNYC Studios",
         duration: Duration(milliseconds: 5739),
@@ -35,6 +35,7 @@ class _PlayState extends State<Play> {
         "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg",
       ),);
     }
+    _startAudioPlayerBtn();
   }
 
 
@@ -71,6 +72,7 @@ class _PlayState extends State<Play> {
                               borderRadius: BorderRadius.circular(800.r)),
                         ),
                       ),
+
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -167,16 +169,14 @@ class _PlayState extends State<Play> {
     );
   }
 
-  _startAudioPlayerBtn() {
+  _startAudioPlayerBtn() async {
     List<dynamic> list = List();
     for (int i = 0; i < _queue.length; i++) {
       var m = _queue[i].toJson();
       list.add(m);
     }
     var params = {"data": list};
-    return MaterialButton(
-      child: Text(_loading ? "Loading..." : 'Start Audio Player'),
-      onPressed: () async {
+
         setState(() {
           _loading = true;
         });
@@ -190,9 +190,7 @@ class _PlayState extends State<Play> {
         setState(() {
           _loading = false;
         });
-      },
-    );
-  }
+      }
 
   Widget positionIndicator(MediaItem mediaItem, PlaybackState state) {
     double seekPos;
