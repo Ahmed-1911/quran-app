@@ -1,9 +1,10 @@
+import 'package:audio_service/audio_service.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/views/play-page/play-page.dart';
 
-void main() => runApp(DevicePreview(builder: (context)=>MyApp()));
+void main() => runApp(DevicePreview(builder: (context)=>AudioServiceWidget(child: MyApp())));
 
 class MyApp extends StatelessWidget {
   @override
