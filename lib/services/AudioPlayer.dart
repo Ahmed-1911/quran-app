@@ -2,33 +2,31 @@ import 'dart:async';
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
 MediaControl playControl = MediaControl(
-  androidIcon: 'assets/iconfinder_play.svg',
+  androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
   label: 'Play',
   action: MediaAction.play,
 );
 MediaControl pauseControl = MediaControl(
-  androidIcon: 'assets/pause_white.svg',
+  androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
   label: 'Pause',
   action: MediaAction.pause,
 );
 MediaControl skipToNextControl = MediaControl(
-  androidIcon: 'drawable/ic_action_skip_next',
+  androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
   label: 'Next',
   action: MediaAction.skipToNext,
 );
 MediaControl skipToPreviousControl = MediaControl(
-  androidIcon: 'drawable/ic_action_skip_previous',
+  androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
   label: 'Previous',
   action: MediaAction.skipToPrevious,
 );
 MediaControl stopControl = MediaControl(
-  androidIcon: 'assets/pause_white.svg',
+  androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
   label: 'Stop',
   action: MediaAction.stop,
-
 );
 class AudioPlayerTask extends BackgroundAudioTask {
-  //
   var _queue = <MediaItem>[];
   int _queueIndex = -1;
   AudioPlayer _audioPlayer = new AudioPlayer();
@@ -169,6 +167,7 @@ class AudioPlayerTask extends BackgroundAudioTask {
     else
       onPlay();
   }
+
   Future<void> _setState({
     AudioProcessingState processingState,
     Duration position,
@@ -180,7 +179,7 @@ class AudioPlayerTask extends BackgroundAudioTask {
     }
     await AudioServiceBackground.setState(
       controls: getControls(),
-      systemActions: [MediaAction.seekTo],
+      systemActions: [MediaAction.seekTo,MediaAction.pause,MediaAction.stop],
       processingState:
       processingState ?? AudioServiceBackground.state.processingState,
       playing: _playing,

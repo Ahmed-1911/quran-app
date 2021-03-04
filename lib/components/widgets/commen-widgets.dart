@@ -6,12 +6,22 @@ import 'package:progressive_image/progressive_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/components/constrains/constrain.dart';
 
-myAppBar(String title){
+myContainerAppBar(String title){
   return Container(
       height: 0.07.sh,
       color: primColor,
       alignment: Alignment.center,
       child:autoText(title, 1, 17.ssp, FontWeight.w700, Colors.white)
+  );
+}
+
+//******************************************************
+myAppBar(String title){
+  return AppBar(
+      backgroundColor: primColor,
+      elevation: 0,
+      centerTitle: true,
+      title:autoText(title, 1, 19.ssp, FontWeight.w700, Colors.white)
   );
 }
 

@@ -11,8 +11,8 @@ class ListOfRadios {
 
 }
 
-class Radio {
-  Radio({
+class RadioModel {
+  RadioModel({
     this.name,
     this.radioUrl,
   });
@@ -20,7 +20,7 @@ class Radio {
   String name;
   String radioUrl;
 
-  factory Radio.fromJson(Map<String, dynamic> json) => Radio(
+  factory RadioModel.fromJson(Map<String, dynamic> json) => RadioModel(
     name: json["name"],
     radioUrl: json["radio_url"],
   );

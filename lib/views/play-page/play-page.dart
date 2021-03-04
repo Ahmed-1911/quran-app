@@ -15,7 +15,7 @@ class Play extends StatefulWidget {
 class _PlayState extends State<Play> {
   final BehaviorSubject<double> _dragPositionSubject =
   BehaviorSubject.seeded(null);
-  final _queue = <MediaItem>[];
+  List<MediaItem> queue = [];
 
 
   bool _loading;
@@ -25,14 +25,15 @@ class _PlayState extends State<Play> {
     super.initState();
     _loading = false;
     for (int i = 0; i < 1; i++) {
-      _queue.add(MediaItem(
+      queue.add(
+        MediaItem(
         id: "https://server11.mp3quran.net/hazza/015.mp3",
         album: "قرآن",
         title: "سُورَةُ ٱلْفَاتِحَةِ",
-        artist: "Science Friday and WNYC Studios",
+        artist: "مشاري بن راشد",
+        playable: true,
         duration: Duration(milliseconds: 5739),
-        artUri:
-        "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg",
+        //artUri: "https://images-na.ssl-images-amazon.com/images/I/71Dpex3OrOL.png",
       ),);
     }
     _startAudioPlayerBtn();
@@ -45,8 +46,7 @@ class _PlayState extends State<Play> {
       backgroundColor: primColor,
       body: Column(
         children: <Widget>[
-          // myAppBar('مشاري'),
-          myAppBar('مشاري'),
+          myContainerAppBar('مشاري'),
           StreamBuilder<AudioState>(
             stream: _audioStateStream,
               builder: (context, snapshot) {
@@ -138,20 +138,19 @@ class _PlayState extends State<Play> {
                                   ),
                                 ),
                               ),
-                              Container(
-                                height: 30.h,
-                                width: 30.h,
-                                child: IconButton(
-                                onPressed:AudioService.skipToPrevious  ,
-                                 icon: Icon(
-                                    Icons.repeat, color: primColor, size: 20.sp,),
-                                ),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    border: Border.all(
-                                        color: primColor,
-                                        width: 1.5.sp
-                                    )
+                              GestureDetector(
+                                onTap:AudioService.rewind ,
+                                child: Container(
+                                  height: 30.h,
+                                  width: 30.h,
+                                  child: Icon(Icons.repeat, color: primColor, size: 20.sp,),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.r),
+                                      border: Border.all(
+                                          color: primColor,
+                                          width: 1.5.sp
+                                      )
+                                  ),
                                 ),
                               ),
                             ],
@@ -166,23 +165,29 @@ class _PlayState extends State<Play> {
       ),
     );
   }
-//asdasdasd
-  
+
+
   _startAudioPlayerBtn() async {
     List<dynamic> list = List();
-    for (int i = 0; i < _queue.length; i++) {
-      var m = _queue[i].toJson();
+    for (int i = 0; i < queue.length; i++) {
+      var m = queue[i].toJson();
       list.add(m);
     }
     var params = {"data": list};
-
         setState(() {
           _loading = true;
         });
         await AudioService.start(
+          androidEnableQueue:true,
+          androidNotificationClickStartsActivity: true,
+          androidStopForegroundOnPause: true,
+          androidResumeOnClick: true,
+          androidNotificationChannelDescription: 'ya rab ',
+          androidArtDownscaleSize: Size.fromHeight(50),
+          androidNotificationOngoing: true,
           backgroundTaskEntrypoint: _audioPlayerTaskEntrypoint,
           androidNotificationChannelName: 'Audio Player',
-          androidNotificationColor: 0xFF2196f3,
+          //androidNotificationColor: 0xFFFFFFFF,
           androidNotificationIcon: 'mipmap/ic_launcher',
           params: params,
         );
@@ -199,8 +204,7 @@ class _PlayState extends State<Play> {
           Stream.periodic(Duration(milliseconds: 20)),
               (dragPosition, _) => dragPosition),
       builder: (context, snapshot) {
-        double position =
-            snapshot.data ?? state.currentPosition.inMilliseconds.toDouble();
+        double position = snapshot.data ?? state.currentPosition.inMilliseconds.toDouble();
         double duration = mediaItem?.duration?.inMilliseconds?.toDouble();
         return Column(
           children: [
@@ -209,28 +213,25 @@ class _PlayState extends State<Play> {
                 min: 0.0,
                 max: duration,
                 value: seekPos ?? max(0.0, min(position, duration)),
+                activeColor: primColor,
+                inactiveColor: Colors.grey,
                 onChanged: (value) {
                   _dragPositionSubject.add(value);
                 },
                 onChangeEnd: (value) {
                   AudioService.seekTo(Duration(milliseconds: value.toInt()));
-                  // Due to a delay in platform channel communication, there is
-                  // a brief moment after releasing the Slider thumb before the
-                  // new position is broadcast from the platform side. This
-                  // hack is to hold onto seekPos until the next state update
-                  // comes through.
-                  // TODO: Improve this code.
                   seekPos = value;
                   _dragPositionSubject.add(null);
                 },
               ),
-            Text("${state.currentPosition}"),
+              autoText("${state.currentPosition}",1,17.ssp,FontWeight.w700,Colors.black),
           ],
         );
       },
     );
   }
 }
+
 Stream<AudioState> get _audioStateStream {
   return Rx.combineLatest3<List<MediaItem>, MediaItem, PlaybackState,
       AudioState>(
@@ -244,6 +245,7 @@ Stream<AudioState> get _audioStateStream {
     ),
   );
 }
-void _audioPlayerTaskEntrypoint() async {
+
+void _audioPlayerTaskEntrypoint(List list) async {
   AudioServiceBackground.run(() => AudioPlayerTask());
 }

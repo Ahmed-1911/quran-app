@@ -2,88 +2,64 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/components/constrains/constrain.dart';
 import 'package:quran/components/widgets/commen-widgets.dart';
+import 'package:quran/models/radio-list.dart';
 import 'package:quran/views/radio-list/radio-list-view-model.dart';
-class RadioList extends StatelessWidget {
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class RadioListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<RadioProvider>(
-      create: (context)=>RadioProvider(),
+      create: (context) => RadioProvider(),
       child: Scaffold(
         backgroundColor: primColor,
         appBar: myAppBar('قائمة قنوات الراديو'),
         body: SafeArea(
-            child:
-            Consumer<RadioProvider>(
-              builder: (ctx,radioList,widget) {
-                radioList.fetchRadioList();
-                return radioList.radioList.length==0?
-                spinKit(context):
-                ListView.builder(
-                      itemCount: radioList.radioList.length,
-                      itemBuilder: (context, index) =>
-                          Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height * 0.1,
-                            margin: EdgeInsets.all(5),
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black26,
-                                      offset: Offset(1, 1),
-                                      blurRadius: 3,
-                                      spreadRadius: 1
-                                  )
-                                ]
+            child: Selector<RadioProvider, List<RadioModel>>(
+                selector: (context, getRadio) {
+          getRadio.fetchRadioList();
+          return getRadio.getRadioList;
+        }, builder: (ctx, radioList, widget) {
+          return radioList.length == 0
+              ? spinKit(context)
+              : ListView.builder(
+                  itemCount: radioList.length,
+                  itemBuilder: (context, index) => Container(
+                        height: 0.12.sh,
+                        margin: EdgeInsets.all(5.sp),
+                        padding: EdgeInsets.all(5.sp),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15.r),
+                            boxShadow: [myBoxShadow]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: <Widget>[
+                            Container(
+                              width: 0.1.sh,
+                              margin: EdgeInsets.symmetric(horizontal: 10),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  //Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(50.r),
+                                  image: DecorationImage(
+                                      image: NetworkImage(index == 3
+                                          ? 'https://i.gifer.com/Pf0j.gif'
+                                          : 'https://png.pngtree.com/png-vector/20190901/ourlarge/pngtree-radio-icon-design-vector-png-image_1712465.jpg'),
+                                      fit: BoxFit.fill),
+                                  boxShadow: [myBoxShadow]),
+                              //child: Icon(Icons.book,color: Color(0xFFFF4F7D),),
                             ),
-                            child: LayoutBuilder(
-                              builder: (ctx, constraints) =>
-                                  Row(
-                                    children: <Widget>[
-                                      Container(
-                                        width: constraints.maxWidth * 0.2,
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 10),
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            //Colors.grey[300],
-                                            borderRadius: BorderRadius.circular(
-                                                50),
-                                            image: DecorationImage(
-                                                image: NetworkImage(index == 3
-                                                    ? 'https://i.gifer.com/Pf0j.gif'
-                                                    : 'https://png.pngtree.com/png-vector/20190901/ourlarge/pngtree-radio-icon-design-vector-png-image_1712465.jpg'),
-                                                fit: BoxFit.fill
-                                            ),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.black26,
-                                                  offset: Offset(1, 1),
-                                                  blurRadius: 5,
-                                                  spreadRadius: 1
-                                              )
-                                            ]
-                                        ),
-                                        //child: Icon(Icons.book,color: Color(0xFFFF4F7D),),
-                                      ),
-                                      Container(
-                                        width: constraints.maxWidth * 0.72,
-                                        child: autoText(radioList.radioList[index].name, 2, 20,
-                                            FontWeight.w600, Colors.black),
-                                      ),
-                                    ],
-                                  ),
+                            Container(
+                              width: 0.6.sw,
+                              child: autoText(radioList[index].name, 2, 20.ssp,
+                                  FontWeight.w600, Colors.black),
                             ),
-                          )
-                  );
-              }
-            )
-        ),
+                          ],
+                        ),
+                      ));
+        })),
       ),
     );
   }
