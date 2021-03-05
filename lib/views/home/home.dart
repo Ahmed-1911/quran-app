@@ -69,7 +69,7 @@ class _HomeState extends State<Home> {
                                       MaterialPageRoute(
                                           builder: (context) => ListOfSurPage(
                                               famousRecitersList[index].name,
-                                              famousRecitersList[index].Server)
+                                              famousRecitersList[index].server)
                                       )
                                   );
                                 },

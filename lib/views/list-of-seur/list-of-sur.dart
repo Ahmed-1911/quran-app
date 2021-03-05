@@ -8,6 +8,7 @@ import 'package:quran/models/sura-list.dart';
 import 'package:quran/views/list-of-seur/sur-of-list-view-model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+// ignore: must_be_immutable
 class ListOfSurPage extends StatelessWidget {
   ListOfSurPage(this.reciterName,this.server);
   String reciterName;

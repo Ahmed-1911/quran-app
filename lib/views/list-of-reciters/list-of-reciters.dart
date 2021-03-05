@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/components/constrains/constrain.dart';
@@ -9,9 +7,10 @@ import 'package:quran/views/list-of-reciters/list-of-reciters-view-model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/views/list-of-seur/list-of-sur.dart';
 
+// ignore: must_be_immutable
 class RecitersPage extends StatelessWidget {
-  RecitersPage(this.filtercondition);
-  String filtercondition;
+  RecitersPage(this.filterCondition);
+  String filterCondition;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
@@ -22,7 +21,7 @@ class RecitersPage extends StatelessWidget {
         body: SafeArea(
             child: Selector<RecitersProvider, List<Reciter>>(
                 selector: (context, getReciter) {
-          getReciter.fetchRecitersList(filtercondition);
+          getReciter.fetchRecitersList(filterCondition);
           return getReciter.getRecitersList;
         }, builder: (ctx, recitersList, widget) {
                   print(recitersList.length);

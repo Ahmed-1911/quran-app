@@ -2,8 +2,8 @@ class FamousReciterModel {
   final String name;
   final String imageUrl;
   final int id;
-  final String Server;
-  FamousReciterModel({this.name, this.imageUrl, this.id,this.Server});
+  final String server;
+  FamousReciterModel({this.name, this.imageUrl, this.id,this.server});
 }
 
   List<FamousReciterModel> famousRecitersList = [
