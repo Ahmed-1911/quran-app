@@ -32,7 +32,7 @@ class _PlayState extends State<Play> {
         title: "سُورَةُ ٱلْفَاتِحَةِ",
         artist: "مشاري بن راشد",
         playable: true,
-        duration: Duration(milliseconds: 5739),
+        duration: Duration(milliseconds: 50739),
         //artUri: "https://images-na.ssl-images-amazon.com/images/I/71Dpex3OrOL.png",
       ),);
     }
@@ -95,21 +95,28 @@ class _PlayState extends State<Play> {
                           autoText(
                               'رواية حفص عن عاصم', 1, 10.ssp, FontWeight.w400,
                               Colors.black54),
-                          Slider(
+                          positionIndicator(mediaItem, playbackState),
+                     /*     Slider(
                             value: 5,
                             onChanged: (value) => {},
                             activeColor: primColor,
                             max: 20,
-                          ),
+                          ),*/
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               GestureDetector(
-                                onTap: AudioService.pause,
+                                onTap: (){
+                                  setState(() {
+                                  });
+                                  AudioService.stop();
+                                },
                                 child: Container(
                                   height: 30.h,
                                   width: 30.h,
-                                  child: Icon(Icons.stop, color: primColor, size: 20.sp,),
+                                  child: Icon(
+                                   Icons.stop,
+                                    color: primColor, size: 20.sp,),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.r),
                                       border: Border.all(
@@ -119,14 +126,16 @@ class _PlayState extends State<Play> {
                                   ),
                                 ),
                               ),
+                              playing?
                               GestureDetector(
-                                onTap:AudioService.play ,
+                                onTap:  AudioService.pause,
                                 child: Container(
                                   margin: EdgeInsets.symmetric(horizontal: 20.w),
                                   height: 50.h,
                                   width: 50.h,
                                   child:  Icon(
-                                      Icons.play_arrow, color: Colors.white,
+                                    Icons.pause,
+                                    color: Colors.white,
                                       size: 40.sp,),
                                   decoration: BoxDecoration(
                                       color: primColor,
@@ -137,7 +146,28 @@ class _PlayState extends State<Play> {
                                       )
                                   ),
                                 ),
+                              ):
+                              GestureDetector(
+                                onTap:AudioService.play,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 20.w),
+                                  height: 50.h,
+                                  width: 50.h,
+                                  child:  Icon(
+                                    Icons.play_arrow,
+                                    color: Colors.white,
+                                    size: 40.sp,),
+                                  decoration: BoxDecoration(
+                                      color: primColor,
+                                      borderRadius: BorderRadius.circular(40.r),
+                                      border: Border.all(
+                                          color: primColor,
+                                          width: 1.5.sp
+                                      )
+                                  ),
+                                ),
                               ),
+
                               GestureDetector(
                                 onTap:AudioService.rewind ,
                                 child: Container(
@@ -224,7 +254,7 @@ class _PlayState extends State<Play> {
                   _dragPositionSubject.add(null);
                 },
               ),
-              autoText("${state.currentPosition}",1,17.ssp,FontWeight.w700,Colors.black),
+          //    autoText("${state.currentPosition}",1,17.ssp,FontWeight.w700,Colors.black),
           ],
         );
       },
