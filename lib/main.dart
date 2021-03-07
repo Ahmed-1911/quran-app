@@ -2,8 +2,8 @@ import 'package:audio_service/audio_service.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
- import 'package:quran/views/home/home.dart';
-
+import 'package:quran/views/home/home.dart';
+import 'package:quran/views/test.dart';
 import 'views/play-page/play-page.dart';
 
 void main() => runApp(DevicePreview(builder: (context)=>AudioServiceWidget(child: MyApp())));
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Play(),
+        home: Home(),
       ),
     );
   }
