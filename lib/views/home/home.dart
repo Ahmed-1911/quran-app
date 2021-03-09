@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/components/constrains/constrain.dart';
 import 'package:quran/components/widgets/commen-widgets.dart';
@@ -24,6 +25,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   var contHeight1 = 0.0;
   var contHeight2 = 0.0;
+  RadioPlayerController radioPlayerController;
 
   change() {
     Timer(Duration(seconds: 2), () {
@@ -35,14 +37,13 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    radioPlayerController=Get.put(RadioPlayerController());
     change();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: RadioPlayerProvider(),
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: SafeArea(
@@ -122,7 +123,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               //Famous Radio channel
-               radioSection(context, contHeight2),
+               radioSection(context, contHeight2,radioPlayerController),
               //el Rewayat
                Container(
                 margin: EdgeInsets.symmetric(vertical: 10.h),
@@ -155,7 +156,6 @@ class _HomeState extends State<Home> {
             ],
           )),
         ),
-      ),
-    );
+      );
   }
 }

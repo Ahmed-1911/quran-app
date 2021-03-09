@@ -44,7 +44,7 @@ dependencies:
   audioplayers: ^0.16.1
   just_audio: ^0.2.1
   flutter_radio_player: ^1.0.7
-
+  get:
 
 dev_dependencies:
   flutter_test:

@@ -4,6 +4,7 @@ import 'package:quran/components/constrains/constrain.dart';
 import 'package:quran/components/widgets/commen-widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/models/famous-radio.dart';
+import 'package:quran/services/RadioPlayer.dart';
 import 'package:quran/views/radio-list/radio-list.dart';
 
 
@@ -28,7 +29,7 @@ headContainer(BuildContext context, String title, Widget toPage) {
       ));
 }
 
-radioSection(BuildContext context,double contHeight2){
+radioSection(BuildContext context,double contHeight2,RadioPlayerController radioController){
 return Container(
   margin: EdgeInsets.symmetric(vertical: 10.h),
   child: Column(
@@ -45,7 +46,7 @@ return Container(
             itemBuilder: (context, index) {
               return Column(
                 children: <Widget>[
-                  radioRunContainer(radioList[index],contHeight2),
+                  radioRunContainer(radioList[index],contHeight2,radioController),
                   Container(
                       height: 40.h,
                       child: autoText(radioList[index].name, 2,

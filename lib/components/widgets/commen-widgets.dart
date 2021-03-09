@@ -74,119 +74,100 @@ myImageContainer(BuildContext context,String image){
 
 
 //************************************************************
-Selector radioRunContainer(var item,double contHeight2){
-  return Selector<RadioPlayerProvider,Stream<String>>(
-    selector: (context,getRadioPlayer){
-      getRadioPlayer.initRadioService();
-      return getRadioPlayer.getRadioPlayer;},
-    builder:(ctx, radioPlayer, widget)=> StreamBuilder(
-        stream: radioPlayer,
-        initialData:FlutterRadioPlayer.flutter_radio_paused,
-        builder: (context, AsyncSnapshot<String> snapshot) {
-          String returnData = snapshot.data;
-          switch (returnData) {
-            case FlutterRadioPlayer.flutter_radio_stopped:
-              return Consumer<RadioPlayerProvider>(
-                builder:(ctx, radioChange, widget)=> GestureDetector(
-                  onTap: ()async{
-                    item.radioUrl==radioChange.getPlayNow?
-                    await radioChange.togglePlayer:
-                    radioChange.changeServer(item.radioUrl);
-                  },
-                  child: Selector<RadioPlayerProvider,String>(
-                    selector: (context,getPlay)=>getPlay.getPlayNow,
-                    builder:(context,playNow,widget)=>
-                        AnimatedContainer(
-                      duration: Duration(seconds: 3),
-                      curve: Curves.bounceInOut,
-                      height: contHeight2,
-                      width: 0.1.sh,
-                      margin: EdgeInsets.all(7.sp),
-                      alignment: Alignment.bottomCenter,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(100.r),
-                          border: Border.all(
-                              color: primColor, width: 2.sp),
-                          image: DecorationImage(
-                            image: NetworkImage('https://jekashop.com/media/catalog/product/cache/12ad95d8a2fb3df88ee5f5df1ef6c6e8/d/9/d9pm16520-as200.jpg'),
-                            fit: BoxFit.fill,
-                            //colorFilter: ColorFilter.mode(Colors.black12, BlendMode.srcOver)
-                          ),
-                          boxShadow: [myBoxShadow]),
+ radioRunContainer(var item,double contHeight2,RadioPlayerController radioController){
+  return StreamBuilder(
+      stream: radioController.flutterRadioPlayer.value.isPlayingStream,
+      initialData:FlutterRadioPlayer.flutter_radio_paused,
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        String returnData = snapshot.data;
+        switch (returnData) {
+          case FlutterRadioPlayer.flutter_radio_stopped:
+            return GestureDetector(
+              onTap: ()async{
+                await radioController.initRadioService();
+                item.radioUrl==radioController.playNow?
+                await radioController.flutterRadioPlayer.value.playOrPause():
+                radioController.changeServer(item.radioUrl);
+              },
+              child: AnimatedContainer(
+                duration: Duration(seconds: 3),
+                curve: Curves.bounceInOut,
+                height: contHeight2,
+                width: contHeight2,
+                margin: EdgeInsets.all(7.sp),
+                alignment: Alignment.bottomCenter,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100.r),
+                    border: Border.all(
+                        color: primColor, width: 2.sp),
+                    image: DecorationImage(
+                      image: NetworkImage('https://jekashop.com/media/catalog/product/cache/12ad95d8a2fb3df88ee5f5df1ef6c6e8/d/9/d9pm16520-as200.jpg'),
+                      fit: BoxFit.fill,
+                      //colorFilter: ColorFilter.mode(Colors.black12, BlendMode.srcOver)
                     ),
+                    boxShadow: [myBoxShadow]),
+              ),
+            );
+            break;
+          case FlutterRadioPlayer.flutter_radio_loading:
+            return  AnimatedContainer(
+              duration: Duration(seconds: 3),
+              curve: Curves.bounceInOut,
+              height: contHeight2,
+              width: contHeight2,
+              margin: EdgeInsets.all(7.sp),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(100.r),
+                  border: Border.all(color: primColor, width: 2.sp),
+                  image: DecorationImage(
+                    image: NetworkImage(
+                        radioController.playNow==item.radioUrl ?
+                        'https://jokercodes.com//assets/imgs/ajax-loader.gif':
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjMML9kORyTVKM5lUsJkg29Sc4H-zmIwwJUA&usqp=CAU'
+                    ),
+                    fit: BoxFit.fill,
                   ),
-                ),
-              );
-              break;
-            case FlutterRadioPlayer.flutter_radio_loading:
-              return  Selector<RadioPlayerProvider,String>(
-                selector: (context,getPlay)=>getPlay.getPlayNow,
-                builder:(context,playNow,widget)=> AnimatedContainer(
-                  duration: Duration(seconds: 3),
-                  curve: Curves.bounceInOut,
-                  height: contHeight2,
-                  width: 0.1.sh,
-                  margin: EdgeInsets.all(7.sp),
-                  //alignment: Alignment.bottomCenter,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(100.r),
-                      border: Border.all(color: primColor, width: 2.sp),
-                      image: DecorationImage(
-                        image: NetworkImage(
-                            playNow==item.radioUrl ?
-                            'https://jokercodes.com//assets/imgs/ajax-loader.gif':
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjMML9kORyTVKM5lUsJkg29Sc4H-zmIwwJUA&usqp=CAU'
-                        ),
-                        fit: BoxFit.fill,
+                  boxShadow: [myBoxShadow]),
+            );
+          case FlutterRadioPlayer.flutter_radio_error:
+            return RaisedButton(
+                child: Text("Retry ?"),
+                onPressed: () async {
+                  // await initRadioService();
+                });
+            break;
+          default:
+            return GestureDetector(
+              onTap: ()async{
+                item.radioUrl==radioController.playNow.value?
+                await radioController.flutterRadioPlayer.value.playOrPause():
+                await radioController.changeServer(item.radioUrl);
+              },
+              child: AnimatedContainer(
+                duration: Duration(seconds: 3),
+                curve: Curves.bounceInOut,
+                height: contHeight2,
+                width: contHeight2,
+                margin: EdgeInsets.all(7.sp),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100.r),
+                    border: Border.all(color: primColor, width: 2.sp),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          radioController.playNow==item.radioUrl && snapshot.data == FlutterRadioPlayer.flutter_radio_playing?
+                          'https://i.gifer.com/Pf0j.gif':
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjMML9kORyTVKM5lUsJkg29Sc4H-zmIwwJUA&usqp=CAU'
                       ),
-                      boxShadow: [myBoxShadow]),
-                ),
-              );
-            case FlutterRadioPlayer.flutter_radio_error:
-              return RaisedButton(
-                  child: Text("Retry ?"),
-                  onPressed: () async {
-                    // await initRadioService();
-                  });
-              break;
-            default:
-              return Consumer<RadioPlayerProvider>(
-                builder:(ctx, radioChange, widget)=> GestureDetector(
-                  onTap: ()async{
-                    item.radioUrl==radioChange.getPlayNow?
-                    await radioChange.togglePlayer:
-                    await radioChange.changeServer(item.radioUrl);
-                  },
-                  child: Selector<RadioPlayerProvider,String>(
-                    selector: (context,getPlay)=>getPlay.getPlayNow,
-                    builder:(context,playNow,widget)=> AnimatedContainer(
-                      duration: Duration(seconds: 3),
-                      curve: Curves.bounceInOut,
-                      height: contHeight2,
-                      margin: EdgeInsets.all(7.sp),
-                     // alignment: Alignment.bottomCenter,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(100.r),
-                          border: Border.all(color: primColor, width: 2.sp),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                playNow==item.radioUrl && snapshot.data == FlutterRadioPlayer.flutter_radio_playing?
-                                'https://i.gifer.com/Pf0j.gif':
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjMML9kORyTVKM5lUsJkg29Sc4H-zmIwwJUA&usqp=CAU'
-                            ),
-                            fit: BoxFit.fill,
-                          ),
-                          boxShadow: [myBoxShadow]),
+                      fit: BoxFit.fill,
                     ),
-                  ),
-                ),
-              );
-              break;
-          }
+                    boxShadow: [myBoxShadow]),
+              )
+            );
+            break;
         }
-    ),
+      }
   );
 }
