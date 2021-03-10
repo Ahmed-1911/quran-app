@@ -277,7 +277,7 @@ class _PlayState extends State<Play> {
     return StreamBuilder(
       stream: Rx.combineLatest2<double, double, double>(
           _dragPositionSubject.stream,
-          Stream.periodic(Duration(milliseconds: 20)),
+          Stream.periodic(Duration(milliseconds: 50)),
               (dragPosition, _) => dragPosition),
       builder: (context, snapshot) {
         double position = snapshot.data ?? state.currentPosition.inMilliseconds.toDouble();
@@ -300,7 +300,6 @@ class _PlayState extends State<Play> {
                   _dragPositionSubject.add(null);
                 },
               ),
-          //    autoText("${state.currentPosition}",1,17.ssp,FontWeight.w700,Colors.black),
           ],
         );
       },
