@@ -23,6 +23,8 @@ class _PlayState extends State<Play> {
   @override
   void initState() {
     super.initState();
+    /*if(AudioService.running==true)
+      AudioService.stop();*/
     _loading = false;
     for (int i = 0; i < 1; i++) {
       queue.add(
@@ -39,7 +41,7 @@ class _PlayState extends State<Play> {
     _startAudioPlayerBtn();
   }
 
-
+  double seekPos,position;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +97,42 @@ class _PlayState extends State<Play> {
                           autoText(
                               'رواية حفص عن عاصم', 1, 10.ssp, FontWeight.w400,
                               Colors.black54),
-                          positionIndicator(mediaItem, playbackState),
+                          StreamBuilder(
+                            stream: Rx.combineLatest2<double, double, double>(
+                                _dragPositionSubject.stream,
+                                Stream.periodic(Duration(milliseconds: 20)),
+                                    (dragPosition, _) => dragPosition),
+
+
+                            builder: (context, snapshot) {
+
+                              //print(snapshot.data.toString()+"*********************************************************");
+                              position = snapshot.data  ?? playbackState.currentPosition.inMilliseconds.toDouble();
+                               double duration = mediaItem?.duration?.inMilliseconds?.toDouble();
+                              return Column(
+                                children: [
+                                  if (duration != null)
+                                    Slider(
+                                      min: 0.0,
+                                      max: duration,
+                                      value: max(0.0, min(position, duration)),
+                                      activeColor: primColor,
+                                      inactiveColor: Colors.grey,
+                                      onChanged: (value) {
+                                        _dragPositionSubject.add(value);
+                                      },
+                                      onChangeEnd: (value) {
+                                        position = value;
+                                        AudioService.seekTo(Duration(milliseconds: value.toInt()));
+                                        _dragPositionSubject.add(null);
+                                      },
+                                    ),
+                                  //    autoText("${state.currentPosition}",1,17.ssp,FontWeight.w700,Colors.black),
+                                ],
+                              );
+                            },
+                          ),
+                          //positionIndicator(mediaItem, playbackState),
                      /*     Slider(
                             value: 5,
                             onChanged: (value) => {},
@@ -108,8 +145,11 @@ class _PlayState extends State<Play> {
                               GestureDetector(
                                 onTap: (){
                                   setState(() {
-                                  });
-                                  AudioService.stop();
+                                    position=0.0;
+                                   });
+                                  AudioService.seekTo(Duration(milliseconds: 0));
+
+                                  AudioService.pause();
                                 },
                                 child: Container(
                                   height: 30.h,
@@ -148,7 +188,13 @@ class _PlayState extends State<Play> {
                                 ),
                               ):
                               GestureDetector(
-                                onTap:AudioService.play,
+                                onTap:(){
+                                  setState(() {
+                                    if(position==0)
+                                      position=50;
+                                  });
+                                  AudioService.play();
+                                  },
                                 child: Container(
                                   margin: EdgeInsets.symmetric(horizontal: 20.w),
                                   height: 50.h,
