@@ -1,21 +1,17 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 import 'package:quran/components/constrains/constrain.dart';
 import 'package:quran/components/widgets/commen-widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/components/widgets/home-widget.dart';
 import 'package:quran/models/famous-reciters.dart';
-import 'package:quran/models/famous-radio.dart';
 import 'package:quran/models/rewayat.dart';
 import 'package:quran/services/RadioPlayer.dart';
 import 'package:quran/views/list-of-reciters/list-of-reciters.dart';
 import 'file:///C:/Users/Ahmed-Uwk/Documents/GitHub/quran-app/lib/views/list-of-rewayat/list-of-rewayt.dart';
 import 'package:quran/views/list-of-seur/list-of-sur.dart';
-import 'package:quran/views/radio-list/radio-list.dart';
 
 class Home extends StatefulWidget {
   @override
