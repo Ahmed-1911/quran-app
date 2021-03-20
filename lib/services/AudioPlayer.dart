@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:audio_service/audio_service.dart';
 import 'package:just_audio/just_audio.dart';
+/*
 MediaControl playControl = MediaControl(
   androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
   label: 'Play',
@@ -211,4 +212,4 @@ class AudioState {
   final MediaItem mediaItem;
   final PlaybackState playbackState;
   AudioState(this.queue, this.mediaItem, this.playbackState);
-}
+}*/

@@ -4,15 +4,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
-import 'package:quran/components/constrains/constrain.dart';
-import 'package:quran/models/famous-radio.dart';
-import 'package:quran/services/RadioPlayer.dart';
-import 'package:quran/services/RadioPlayer.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_radio_player/flutter_radio_player.dart';
-import 'dart:async';
-myContainerAppBar(String title){
+ import 'package:quran/components/constrains/constrain.dart';
+ import 'package:quran/services/RadioPlayer.dart';
+  myContainerAppBar(String title){
   return Container(
       height: 0.07.sh,
       color: primColor,
@@ -74,7 +68,8 @@ myImageContainer(BuildContext context,String image){
 
 
 //************************************************************
- radioRunContainer(var item,double contHeight2,RadioPlayerController radioController){
+/*
+radioRunContainer(var item,double contHeight2,RadioPlayerController radioController){
   return StreamBuilder(
       stream: radioController.flutterRadioPlayer.value.isPlayingStream,
       initialData:FlutterRadioPlayer.flutter_radio_paused,
@@ -170,4 +165,4 @@ myImageContainer(BuildContext context,String image){
         }
       }
   );
-}
+}*/

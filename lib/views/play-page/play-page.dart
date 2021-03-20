@@ -7,6 +7,8 @@ import 'package:quran/components/widgets/commen-widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/services/AudioPlayer.dart';
 
+import '../test.dart';
+/*
 class Play extends StatefulWidget {
   @override
   _PlayState createState() => _PlayState();
@@ -17,15 +19,14 @@ class _PlayState extends State<Play> {
   BehaviorSubject.seeded(null);
   List<MediaItem> queue = [];
 
-
   bool _loading;
-
   @override
   void initState() {
     super.initState();
     /*if(AudioService.running==true)
       AudioService.stop();*/
     _loading = false;
+
     for (int i = 0; i < 1; i++) {
       queue.add(
         MediaItem(
@@ -263,11 +264,19 @@ class _PlayState extends State<Play> {
           androidNotificationOngoing: true,
           backgroundTaskEntrypoint: _audioPlayerTaskEntrypoint,
           androidNotificationChannelName: 'Audio Player',
-          //androidNotificationColor: 0xFFFFFFFF,
+          androidNotificationColor: 0xFFFFFFFF,
           androidNotificationIcon: 'mipmap/ic_launcher',
           params: params,
         );
-        setState(() {
+    await AudioServiceBackground.setState(
+        controls:  [
+          skipToPreviousControl,
+          pauseControl,
+          stopControl,
+          skipToNextControl
+        ],
+    );
+    setState(() {
           _loading = false;
         });
       }
@@ -305,7 +314,44 @@ class _PlayState extends State<Play> {
       },
     );
   }
+
+  List<MediaControl> getControls() {
+        [
+        skipToPreviousControl,
+        pauseControl,
+        stopControl,
+        skipToNextControl
+      ];
+  }
+  MediaControl playControl = MediaControl(
+    androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
+    label: 'Play',
+    action: MediaAction.play,
+  );
+  MediaControl pauseControl = MediaControl(
+    androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
+    label: 'Pause',
+    action: MediaAction.pause,
+  );
+  MediaControl skipToNextControl = MediaControl(
+    androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
+    label: 'Next',
+    action: MediaAction.skipToNext,
+  );
+  MediaControl skipToPreviousControl = MediaControl(
+    androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
+    label: 'Previous',
+    action: MediaAction.skipToPrevious,
+  );
+  MediaControl stopControl = MediaControl(
+    androidIcon: 'https://cdn2.vectorstock.com/i/1000x1000/60/26/play-button-for-video-or-music-play-icon-vector-20716026.jpg',
+    label: 'Stop',
+    action: MediaAction.stop,
+  );
+
 }
+
+
 
 Stream<AudioState> get _audioStateStream {
   return Rx.combineLatest3<List<MediaItem>, MediaItem, PlaybackState,
@@ -324,3 +370,4 @@ Stream<AudioState> get _audioStateStream {
 void _audioPlayerTaskEntrypoint(List list) async {
   AudioServiceBackground.run(() => AudioPlayerTask());
 }
+*/

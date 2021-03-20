@@ -58,7 +58,7 @@ class RadioListPage extends StatelessWidget {
 //                                  boxShadow: [myBoxShadow]),
 //                              //child: Icon(Icons.book,color: Color(0xFFFF4F7D),),
 //                            ),
-                          radioRunContainer(radioList[index],  0.1.sh,radidoController),
+                         // radioRunContainer(radioList[index],  0.1.sh,radidoController),
                            Container(
                              width: 0.6.sw,
                              child: autoText(radioList[index].name, 2, 20.ssp,
