@@ -4,14 +4,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progressive_image/progressive_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:quran/components/constrains/constrain.dart';
-import 'package:quran/models/famous-radio.dart';
 import 'package:quran/services/RadioPlayer.dart';
-import 'package:quran/services/RadioPlayer.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_radio_player/flutter_radio_player.dart';
-import 'dart:async';
 myContainerAppBar(String title){
   return Container(
       height: 0.07.sh,
@@ -60,9 +55,9 @@ myImageContainer(BuildContext context,String image){
     child: ProgressiveImage(
       placeholder: AssetImage('assets/images/loading.gif'),
       thumbnail: NetworkImage(
-          'https://i.pinimg.com/originals/6c/07/09/6c07096f19511c98a0c861f3470e198a.jpg'),
+          'https://i1.sndcdn.com/artworks-000558644319-udft7l-t500x500.jpg'),
       image: NetworkImage(
-          'https://i.pinimg.com/originals/6c/07/09/6c07096f19511c98a0c861f3470e198a.jpg'),
+          'https://i1.sndcdn.com/artworks-000558644319-udft7l-t500x500.jpg'),
       fadeDuration: Duration(seconds: 2),
       excludeFromSemantics: true,
       height: MediaQuery.of(context).size.height,
@@ -146,10 +141,10 @@ myImageContainer(BuildContext context,String image){
                 await radioController.changeServer(item.radioUrl);
               },
               child: AnimatedContainer(
-                duration: Duration(seconds: 3),
+                duration: Duration(milliseconds: 2000),
                 curve: Curves.bounceInOut,
                 height: contHeight2,
-                width: contHeight2,
+                width:  contHeight2,
                 margin: EdgeInsets.all(7.sp),
                 decoration: BoxDecoration(
                     color: Colors.white,

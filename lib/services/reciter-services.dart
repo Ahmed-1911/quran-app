@@ -11,7 +11,7 @@ class ReciterApi{
       if (response.statusCode == 200) {
         ListOfReciters recitersList = ListOfReciters.fromJson(extractedData);
         List<Reciter> all=recitersList.reciters.map((e) => Reciter.fromJson(e)).toList();
-        return all.where((element) => element.count=="114" && condition=='all'?true:element.rewaya=='$condition').toList();
+        return all.where((element) => element.count=="114" && (condition=='all'? true:element.rewaya==condition)).toList();
       }
       else {
         print(response.statusCode);

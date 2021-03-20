@@ -8,6 +8,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:quran/services/AudioPlayer.dart';
 
 class Play extends StatefulWidget {
+  String reciterName;
+  String suraName;
+  String suraLink;
+  Play(this.suraName,this.reciterName,this.suraLink);
+
   @override
   _PlayState createState() => _PlayState();
 }
@@ -29,14 +34,15 @@ class _PlayState extends State<Play> {
     for (int i = 0; i < 1; i++) {
       queue.add(
         MediaItem(
-        id: "https://server11.mp3quran.net/hazza/015.mp3",
+        id: widget.suraLink,//
         album: "قرآن",
-        title: "سُورَةُ ٱلْفَاتِحَةِ",
-        artist: "مشاري بن راشد",
+        title: widget.suraName,
+        artist: widget.reciterName,
         playable: true,
         duration: Duration(milliseconds: 50739),
         //artUri: "https://images-na.ssl-images-amazon.com/images/I/71Dpex3OrOL.png",
-      ),);
+      )
+      );
     }
     _startAudioPlayerBtn();
   }
@@ -48,7 +54,7 @@ class _PlayState extends State<Play> {
       backgroundColor: primColor,
       body: Column(
         children: <Widget>[
-          myContainerAppBar('مشاري'),
+          myContainerAppBar(widget.reciterName),
           StreamBuilder<AudioState>(
             stream: _audioStateStream,
               builder: (context, snapshot) {
@@ -92,7 +98,7 @@ class _PlayState extends State<Play> {
                               ),
                               child: myImageContainer(context, '')
                           ),
-                          autoText('سوره المائدة', 1, 17.ssp, FontWeight.w700,
+                          autoText(widget.suraName, 1, 17.ssp, FontWeight.w700,
                               Colors.black),
                           autoText(
                               'رواية حفص عن عاصم', 1, 10.ssp, FontWeight.w400,
@@ -102,7 +108,6 @@ class _PlayState extends State<Play> {
                                 _dragPositionSubject.stream,
                                 Stream.periodic(Duration(milliseconds: 20)),
                                     (dragPosition, _) => dragPosition),
-
 
                             builder: (context, snapshot) {
 
