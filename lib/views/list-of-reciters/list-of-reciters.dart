@@ -24,7 +24,6 @@ class RecitersPage extends StatelessWidget {
           getReciter.fetchRecitersList(filterCondition);
           return getReciter.getRecitersList;
         }, builder: (ctx, recitersList, widget) {
-                  print(recitersList.length);
           return recitersList.length == 0
               ? spinKit(context)
               : ListView.builder(
@@ -77,7 +76,7 @@ class RecitersPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(20.r),
                                   image: DecorationImage(
                                       image: NetworkImage(
-                                          'https://upload.sqorebda3.com/uploads/153811939590334.jpg'),
+                                          'https://honnaimg.elwatannews.com/image_archive/840x601/8057321351517401834.jpg'),
                                       fit: BoxFit.fill),
                                   boxShadow: [myBoxShadow]),
                               //child: Icon(Icons.book,color: Color(0xFFFF4F7D),),

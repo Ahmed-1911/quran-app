@@ -50,7 +50,10 @@ dependencies:
   audioplayers:
   just_audio:
   flutter_radio_player:
+<<<<<<< HEAD
 >>>>>>> 0205a5e1af571f0b727adf38199c7701dcea1de7
+=======
+>>>>>>> 7f04d0fc3f840c7b5a234307ac539be0aa17e610
   get:
   audio_session: ^0.0.11
   flutter_tts: ^2.1.0

@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class RadioListPage extends StatelessWidget {
   @override
   bool first=true;
-  RadioPlayerController radidoController=Get.find<RadioPlayerController>();
+  RadioPlayerController radioController=Get.find<RadioPlayerController>();
   Widget build(BuildContext context) {
     return ChangeNotifierProvider.value(
       value: RadioProvider(),
@@ -58,7 +58,11 @@ class RadioListPage extends StatelessWidget {
 //                                  boxShadow: [myBoxShadow]),
 //                              //child: Icon(Icons.book,color: Color(0xFFFF4F7D),),
 //                            ),
+<<<<<<< HEAD
                          // radioRunContainer(radioList[index],  0.1.sh,radidoController),
+=======
+                           radioRunContainer(radioList[index],  0.1.sh,radioController),
+>>>>>>> 7f04d0fc3f840c7b5a234307ac539be0aa17e610
                            Container(
                              width: 0.6.sw,
                              child: autoText(radioList[index].name, 2, 20.ssp,

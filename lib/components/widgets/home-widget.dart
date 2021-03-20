@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:quran/components/constrains/constrain.dart';
 import 'package:quran/components/widgets/commen-widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +9,7 @@ import 'package:quran/services/RadioPlayer.dart';
 import 'package:quran/views/radio-list/radio-list.dart';
 
 
-headContainer(BuildContext context, String title, Widget toPage) {
+headContainer( String title, Widget toPage) {
   return Container(
       height: 40.h,
       margin: EdgeInsets.symmetric(horizontal: 10.sp),
@@ -17,7 +18,7 @@ headContainer(BuildContext context, String title, Widget toPage) {
         children: <Widget>[
           GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>toPage));
+                Get.to(toPage);
               },
               child: Icon(
             Icons.more,
@@ -35,7 +36,7 @@ return Container(
   child: Column(
     crossAxisAlignment: CrossAxisAlignment.end,
     children: <Widget>[
-      headContainer(context, 'اذاعات الراديو',RadioListPage()),
+      headContainer('اذاعات الراديو',RadioListPage()),
       Container(
         height: 240.h,
         child: ListView.builder(
